@@ -8,35 +8,42 @@
 </head>
 <body>
 <div id="impress" class="impress-not-supported">
-    <div class="fallback-message">
-        <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
-        <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser. Upcoming version 10 of Internet Explorer <i>should</i> also handle it.</p>
-    </div>
     <!--
     	Here is the first slide, the overview
      -->
     <div id="intro" class="step slide" data-x="-1000" data-y="10" data-scale="1">
-        <q>So you're wanting to learn more about Hunter Davis, but resumes are so <b>boring!</b></q>
+        <q>So you're wanting to learn more about <a href="http://www.hunterdavis.com" target="_blank">Hunter Davis</a>, but resumes are so <b><a href="http://www.hunterdavis.com/about/" target="_blank">boring!</a></b></q>
         <span class="footnote"><br><br><br><br><br><br><h5><a href="#contents">Jump To Table Of Contents</></h5> </span>
     </div>
 
 	<div id="preface" class="step slide" data-x="1000" data-y="10" data-scale="1">
-        <q>This resume is my attempt to be a little different.  It is built on the terrific foundation of impress.js and is open source.</q>
-        <span class="footnote"><br><br><h5><a href="#contents">Jump To Table Of Contents</></h5> </span>
+        <q>This resume is my attempt to be a little different.  It is built on the terrific foundation of impress.js and is itsef open source.</q>
+        <span class="footnote"><br><a href="https://github.com/bartaz/impress.js/" target="_blank">impress.js github</a> </span>
+	<span class="footnote"><br><a href="https://github.com/huntergdavis/Hunter-Davis-impress.js-Resume" target="_blank">Hunter Davis' resume gitub</a> </span>
+	<span class="footnote"><br><br><h5><a href="#contents">Jump To Table Of Contents</></h5> </span>
     </div>
 
-    <div id="contents" class="step slide" data-x="5000" data-y="10" data-scale="1">
-        <span class="try">Hunter is a</span>
-        <br>
-        <h4>Hacker</h4>
-        <h3>Writer</h3>
-        <h3>Computer Scientist</h3>
-        <h3>Open Source Advocate<sup>*</sup></h3>
-        <span class="footnote"><sup>*</sup>(and author) </span>
+    <div id="contents" class="step contents" data-x="5000" data-y="10" data-scale="1">
+        <b>Hunter is a</b>
+	  <br/>
+	  Hacker
+	  <br/>
+	  <ul>
+	    <li>Zipit Hacking</li>
+	    <li>Dockstar Hacking</li>
+	    <li>Misc Hacking</li>
+	  </ul>
+	  <br/>
+	  Writer
+	  <br/>
+	  Computer Scientist
+	  <br/>
+	  Open Source Advocate (and author)
+	 <br/>
     </div>
 
 </div>	
-	<script src="./impress_minified.js"></script>
+	<script src="./impressjs/js/impress.js"></script>
 	<script>impress();</script>
 </body>
 </html>
