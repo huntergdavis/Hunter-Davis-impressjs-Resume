@@ -64,6 +64,9 @@ table {
     border-spacing: 0;
 }
 
+video {
+    -webkit-transform: translateZ(1px);
+}
 
 body {
     font-family: 'PT Sans', sans-serif;
@@ -101,6 +104,25 @@ a {
 a:hover {
     background: rgba(255,255,255,1);
     text-shadow: -1px -1px 2px rgba(100,100,100,0.5);
+}
+
+.backtocontents a{
+    font-family: 'PT Sans', sans-serif;
+    color: inherit;
+    text-decoration: none;
+    padding: 0 0.1em;
+    background: rgba(255,255,255,0.0);
+    text-shadow: -1px -1px 2px rgba(100,100,100,0.9);
+    border-radius: 0.2em;
+    
+    -webkit-transition: 0.5s;
+    -moz-transition:    0.5s;
+    -ms-transition:     0.5s;
+    -o-transition:      0.5s;
+    transition:         0.5s;      
+    
+    font-size: 12px;
+    line-height: 1.5;    
 }
 
 /* enable clicking on elements 'hiding' behind body in 3D */
@@ -190,6 +212,7 @@ body     { pointer-events: none; }
 }
 
 /* impress.js title */
+
 
 #title {
     padding: 0;
@@ -514,6 +537,20 @@ body     { pointer-events: none; }
   line-height: 15px;
 }
 
+.contents a{
+    color: inherit;
+    text-decoration: none;
+    padding: 0 0.1em;
+    background: rgba(255,255,255,0.0);
+    text-shadow: -1px -1px 2px rgba(100,100,100,0.5);
+    border-radius: 0.2em;
+    
+    -webkit-transition: 0.5s;
+    -moz-transition:    0.5s;
+    -ms-transition:     0.5s;
+    -o-transition:      0.5s;
+    transition:         0.5s;
+}
 
 /* IMPRESS NOT SUPPORTED STYLES */
 
