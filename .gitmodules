@@ -1,0 +1,3 @@
+[submodule "impressjs"]
+	path = impressjs
+	url = https://github.com/bartaz/impress.js.git

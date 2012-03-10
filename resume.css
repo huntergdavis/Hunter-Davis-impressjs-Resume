@@ -1,3 +1,9 @@
+/*
+ * Hunter Davis - (2012) - I'm basing my stylesheet on the excellent
+ * impress.js stylesheet.  Improvements and custom styles will come iteratively
+ * and slowly I imagine over time
+ */
+
 /**
  * This is a stylesheet for a demo presentation for impress.js
  * 
@@ -187,19 +193,6 @@ body     { pointer-events: none; }
 
 #title {
     padding: 0;
-}
-
-#title .try {
-    font-size: 64px;
-    position: absolute;
-    top: -0.5em;
-    left: 1.5em;
-    
-    -webkit-transform: translateZ(20px);
-    -moz-transform:    translateZ(20px);
-    -ms-transform:     translateZ(20px);
-    -o-transform:      translateZ(20px);
-    transform:         translateZ(20px);
 }
 
 #title h1 {
