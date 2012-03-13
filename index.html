@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=1024">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold%7CPT+Sans:400,700,400italic,700italic%7CPT+Serif:400,700,400italic,700italic" rel="stylesheet">
-<link href="resume.css" rel="stylesheet">
+<link href="./css/resume.css" rel="stylesheet">
 </head>
 <body>
 <div id="impress" class="impress-not-supported">
@@ -44,7 +44,7 @@
 	  <br><ul>
 <li>65 Android Apps in 60 Days</li>
 	    <li>Source Tree Visualizer</li>
-	    <li>Quick Grapher (HTML5 Equation and Data Grapher)</li>
+	    <li><a href="#quickgrapher">Quick Grapher (HTML5 Equation and Data Grapher)</a></li>
 	    <li>Easy Inventory</li>
 	    <li>SSRSS</li>
 	    <li>Title Bar Scroller</li>
@@ -125,7 +125,24 @@
 	<span class="backtocontents"><br><br><a href="#contents">Back To Table Of Contents</a> </span>
     </div>
 
+    <div id="quickgrapher" class="step" data-x="5000" data-y="28000" data-scale="5">
+	<q>Quickgrapher started as a research project at Discursive Labs.  The goal of the project is to easily enable open source and freely licensed graphs for the everyday web user.  You can see the embedded version in the next slide.</q>
+	<span class="footnote"><h5><br><a href="#contents">Jump To Table Of Contents</a></h5> </span>
+    </div>
+    <div id="quickgrapher2" class="step" data-x="5000" data-y="34000" data-rotate-z="220" data-scale="4">
+	<div id="simplegraph">
+	  <graph equation="sin(x)" step=.01/>
+	</div>
+	<span class="footnote"><br><br><br><br><h5><a href="#contents">Jump To Table Of Contents</a></h5> </span>
+    </div>
+
 </div>	
-	<script src="./impressjs/js/impress.js"></script><script>impress();</script>
+	<script src="./js/jquery-1.4.4.min.js"></script>
+	<script src="./js/jquery-ui-1.8.9.custom.min.js"></script>
+	<script src="./js/modernizr-1.6.min.js"></script>
+	<script src="./js/quickgrapher/embedded_everything.js"></script>
+	<script src="./js/impressjs/js/impress.js"></script><script>impress();</script>
+
+
 </body>
 </html>
