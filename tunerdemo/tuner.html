@@ -305,11 +305,10 @@ var gl;function initGL(a){try{gl=a.getContext("experimental-webgl");gl.viewportW
 
 </head>
 <body>
-  This is an HTML5 Audio/webGL demonstration.  HTML5 Audio is decoding 'Do I See Color' from <a href="http://soundcloud.com/adventureclubdubstep/do-i-see-color">Adventure Club's SoundCloud Page</a>. <br/> The audio samples are being piped into the dyanmic webGL strobe tuner I wrote during my tenure at Miso Media.  You can use thier Web Tuner with a microphone by going to their Web Tuner page <a href="http://www.misomedia.com/tuner/">here</a>.
-  <br />
-  <a href="javascript:initAudio()">Click here to load the MP3 in and being FFT playback and processing.</a> 
-  <br />
-  <a href="javascript:stopPlayback()">Click here to stop playback and clear the buffers</a>
+  This is an HTML5 Audio/webGL FFT/Pitch Detection demonstration.  Audio is 'Do I See Color' MP3 from <a href="http://soundcloud.com/adventureclubdubstep/do-i-see-color">Adventure Club's SoundCloud Page</a>. <br/> The audio samples are being piped into the dyanmic webGL strobe tuner I wrote during my tenure at Miso Media. <br/><a href="http://www.misomedia.com/">Official Miso Tuner</a>.  
+  <a href="javascript:initAudio()">Click here to load audio and begin strobe processing.</a> or
+ 
+  <a href="javascript:stopPlayback()">Click here to stop playback</a>
 <div id="container">
 <div id="audio_input"></div>
 
