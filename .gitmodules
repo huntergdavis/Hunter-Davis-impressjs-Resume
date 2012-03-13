@@ -1,3 +1,6 @@
 [submodule "impressjs"]
 	path = impressjs
 	url = https://github.com/bartaz/impress.js.git
+[submodule "js/impressjs"]
+	path = js/impressjs
+	url = https://github.com/bartaz/impress.js.git
