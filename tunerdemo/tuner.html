@@ -32,6 +32,21 @@ img#fft-top{
   width: 768px;
   height: 576px;
 }
+
+input#audiofile{
+  z-index: 2;
+  position: absolute;
+  top: 140px;
+  left: 390px;
+  color: white;
+}
+
+input#stopbutton{
+  z-index: 2;
+  position: absolute;
+  top: 140px;
+  left: 290px;
+}
 </style>
 
 <script type="text/javascript">
@@ -309,10 +324,10 @@ var gl;function initGL(a){try{gl=a.getContext("experimental-webgl");gl.viewportW
 
 </head>
 <body>
-  This is an HTML5 Audio/webGL FFT/Pitch Detection demonstration.  Audio is 'Do I See Color' MP3 from <a href="http://soundcloud.com/adventureclubdubstep/do-i-see-color">Adventure Club's SoundCloud Page</a>. <br/> The audio samples are being piped into the dyanmic webGL strobe tuner I wrote during my tenure at Miso Media. <br/><a href="http://www.misomedia.com/">Official Miso Tuner</a>.  
-  <a href="javascript:initAudio()">Click here to load audio and begin strobe processing.</a> or
- 
-  <a href="javascript:stopPlayback()">Click here to stop playback</a>
+  This is an HTML5 Audio/webGL FFT/Pitch Detection demo.  Select an audio file to see it decoded on a the strobe tuner.   <br>
+  Click <a href="javascript:initAudio()">here</a> to decode 'Do I See Color' MP3 from <a href="http://soundcloud.com/adventureclubdubstep/do-i-see-color" target="_blank">Adventure Club</a>. <br/>The audio is piped into the webGL strobe tuner I wrote during my tenure at <a href="http://www.misomedia.com/" target="_blank">Miso Media</a>. <br>
+  <input type="file" id="audiofile" name="fileholder"/>
+  <input type="button" id="stopbutton" value="Stop Playback" onclick="javascript:stopPlayback();">
 <div id="container">
 <div id="audio_input"></div>
 
@@ -323,10 +338,12 @@ var gl;function initGL(a){try{gl=a.getContext("experimental-webgl");gl.viewportW
       //var audio = document.getElementById('audio-element');
       var context;
       var source = 0;
+      var decoding = 0;
+      var signal = new Float32Array(256);
        
       function loadSample(url) {
           // Load asynchronously
-	  $("*").css("cursor", "progress");
+	        $("*").css("cursor", "progress");
 
           var request = new XMLHttpRequest();
           request.open("GET", url, true);
@@ -336,40 +353,48 @@ var gl;function initGL(a){try{gl=a.getContext("experimental-webgl");gl.viewportW
           request.onload = function() { 
               source.buffer = context.createBuffer(request.response, false);
               source.noteOn(0);
-	      $("*").css("cursor", "auto");
+	            $("*").css("cursor", "auto");
+              decoding = 1;
           }
 
           request.send();
       }
 
       function stopPlayback() {
+        decoding = 0;
         source.noteOff(0);
       }
 
       var audioAvailable = function(event) {
-            var inputArrayL = event.inputBuffer.getChannelData(0);
-            var inputArrayR = event.inputBuffer.getChannelData(1);
-            var outputArrayL = event.outputBuffer.getChannelData(0);
-            var outputArrayR = event.outputBuffer.getChannelData(1);
-            //event.outputBuffer.setChannelData(0,inputArrayL);
-            //event.outputBuffer.setChannelData(1,inputArrayR);
-	    //outputArrayL = inputArrayL;
-	    //outputArrayR = inputArrayR;
+          if(decoding == 1) { 
+              var inputArrayL = event.inputBuffer.getChannelData(0);
+              var inputArrayR = event.inputBuffer.getChannelData(1);
+              var outputArrayL = event.outputBuffer.getChannelData(0);
+              var outputArrayR = event.outputBuffer.getChannelData(1);
+              //event.outputBuffer.setChannelData(0,inputArrayL);
+              //event.outputBuffer.setChannelData(1,inputArrayR);
+  	          //outputArrayL = inputArrayL;
+  	          //outputArrayR = inputArrayR;
 
-            var signal = new Float32Array(inputArrayL.length);
+              for (var i = 0; i < inputArrayL.length; i++ ) {
+                //outputArrayL[i] = inputArrayL[i];
+                //outputArrayR[i] = inputArrayR[i];
+                // Assuming interlaced stereo channels,
+                // need to split and merge into a stero-mix mono signal
+                signal[i] = (inputArrayL[i] + inputArrayR[i]) / 2;
+  	            outputArrayL[i] = signal[i];
+  	            outputArrayR[i] = signal[i];
+              }
 
-            for (var i = 0; i < inputArrayL.length; i++ ) {
-              //outputArrayL[i] = inputArrayL[i];
-              //outputArrayR[i] = inputArrayR[i];
-              // Assuming interlaced stereo channels,
-              // need to split and merge into a stero-mix mono signal
-              signal[i] = (inputArrayL[i] + inputArrayR[i]) / 2;
-	      outputArrayL[i] = signal[i];
-	      outputArrayR[i] = signal[i];
-            }
-
-           stageOneFFT(signal);
-
+             stageOneFFT(signal);
+        } else {
+          var outputArrayL = event.outputBuffer.getChannelData(0);
+          var outputArrayR = event.outputBuffer.getChannelData(1);
+          for(var i =0;i<256;i++) {
+            outputArrayL[i] = outputArrayR[i] = 0;
+          }
+          source.noteOff(0);
+        }
       }    
 
     function initAudio() {
@@ -387,6 +412,42 @@ var gl;function initGL(a){try{gl=a.getContext("experimental-webgl");gl.viewportW
         // Load the sample buffer for the audio source
         loadSample("./adventureclubdoi.mp3");
     }
+
+    function handleFileSelect(evt) {
+      var files = evt.target.files; // FileList object
+
+      context = new webkitAudioContext();
+      source = context.createBufferSource();
+
+      // This AudioNode will do the amplitude modulation effect directly in JavaScript
+      jsProcessor = context.createJavaScriptNode(256);
+      jsProcessor.onaudioprocess = audioAvailable;      // run jsfft audio frame event
+      
+      // Connect the processing graph: source -> jsProcessor -> analyser -> destination
+      source.connect(jsProcessor);
+      jsProcessor.connect(context.destination);
+
+      // files is a FileList of File objects. List some properties.
+      for (var i = 0, f; f = files[i]; i++) {
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+              source.buffer = context.createBuffer(e.target.result, false);
+              source.noteOn(0);
+              decoding = 1;
+          };
+        })(f);
+
+        // Read in the image file as a data URL.
+        reader.readAsArrayBuffer(f);
+      }
+
+    }
+
+
+    document.getElementById('audiofile').addEventListener('change', handleFileSelect, false);
 
 
     //window.onload = initAudio();
