@@ -488,6 +488,11 @@ img#fft-top{
 #overview {
     z-index: -1;
     padding: 0;
+    background-image: url(../images/hunterpresents.png);
+    background-position: 30px 0px;
+    background-size:300px 700px;
+    background-repeat: no-repeat;
+
 }
 
 /* on overview step everything is visible */
