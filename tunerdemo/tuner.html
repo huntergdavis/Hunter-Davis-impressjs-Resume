@@ -365,25 +365,30 @@ var gl;function initGL(a){try{gl=a.getContext("experimental-webgl");gl.viewportW
         source.noteOff(0);
       }
 
+      var inputArrayL = [];
+      var inputArrayR = [];
+      var outputArrayL = [];
+      var outputArrayR = [];
+
       var audioAvailable = function(event) {
           if(decoding == 1) { 
-              var inputArrayL = event.inputBuffer.getChannelData(0);
-              var inputArrayR = event.inputBuffer.getChannelData(1);
-              var outputArrayL = event.outputBuffer.getChannelData(0);
-              var outputArrayR = event.outputBuffer.getChannelData(1);
+              inputArrayL = event.inputBuffer.getChannelData(0);
+              inputArrayR = event.inputBuffer.getChannelData(1);
+              outputArrayL = event.outputBuffer.getChannelData(0);
+              outputArrayR = event.outputBuffer.getChannelData(1);
               //event.outputBuffer.setChannelData(0,inputArrayL);
               //event.outputBuffer.setChannelData(1,inputArrayR);
   	          //outputArrayL = inputArrayL;
   	          //outputArrayR = inputArrayR;
 
               for (var i = 0; i < inputArrayL.length; i++ ) {
-                //outputArrayL[i] = inputArrayL[i];
-                //outputArrayR[i] = inputArrayR[i];
+                outputArrayL[i] = inputArrayL[i];
+                outputArrayR[i] = inputArrayR[i];
                 // Assuming interlaced stereo channels,
                 // need to split and merge into a stero-mix mono signal
                 signal[i] = (inputArrayL[i] + inputArrayR[i]) / 2;
-  	            outputArrayL[i] = signal[i];
-  	            outputArrayR[i] = signal[i];
+  	        //    outputArrayL[i] = signal[i];
+  	        //    outputArrayR[i] = signal[i];
               }
 
              stageOneFFT(signal);
