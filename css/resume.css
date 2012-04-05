@@ -544,6 +544,23 @@ img#fft-top{
     margin-top: 100px;
 }
 
+.slide table {
+    display: block;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,.3);
+    margin-top: 10px;
+}
+
+.slide td {
+  border: 1px solid rgba(0,0,0,.3);
+}
+
+#darker {
+  font-size: 16px;
+  font-weight: bold; 
+}
+
 .slide q strong {
     white-space: nowrap;
 }
